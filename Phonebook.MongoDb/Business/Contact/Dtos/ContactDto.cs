@@ -1,4 +1,4 @@
-﻿namespace WebAPI.Contact.Dtos
+﻿namespace Business.Contact.Dtos
 {
     public record ContactDto
     {

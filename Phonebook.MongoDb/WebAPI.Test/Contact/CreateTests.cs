@@ -1,4 +1,4 @@
-﻿using WebAPI.Contact.Dtos;
+﻿using Business.Contact.Dtos;
 
 namespace WebAPI.Test.Contact
 {
