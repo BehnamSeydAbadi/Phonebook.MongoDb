@@ -17,3 +17,5 @@ bin-release/
 # should NOT be excluded as they contain compiler settings and other important
 # information for Eclipse / Flash Builder.
 /Phonebook.MongoDb/.vs/Phonebook.MongoDb
+/Phonebook.MongoDb/.vs/ProjectEvaluation
+/Phonebook.MongoDb/WebAPI/Contact/Controllers/ValuesController.cs
