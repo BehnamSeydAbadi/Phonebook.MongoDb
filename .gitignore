@@ -18,3 +18,4 @@ bin-release/
 # information for Eclipse / Flash Builder.
 /Phonebook.MongoDb/.vs/Phonebook.MongoDb
 /Phonebook.MongoDb/.vs/ProjectEvaluation
+/Phonebook.MongoDb/WebAPI/Contact/Controllers/ValuesController.cs
