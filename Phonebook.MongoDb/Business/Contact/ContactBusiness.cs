@@ -19,6 +19,10 @@ namespace Business.Contact
             if (string.IsNullOrWhiteSpace(dto.FirstName) && string.IsNullOrWhiteSpace(dto.LastName))
                 throw new EmptyNameException();
 
+            if (string.IsNullOrWhiteSpace(dto.PhoneNumber))
+                throw new EmptyPhoneNumberException();
+
+
             var entity = new ContactEntity
             {
                 FirstName = dto.FirstName,
