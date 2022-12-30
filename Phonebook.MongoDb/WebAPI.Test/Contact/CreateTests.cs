@@ -12,11 +12,12 @@ namespace WebAPI.Test.Contact
               .RuleFor(fake => fake.FirstName, fake => fake.Random.String())
               .Generate();
 
-            var response = await _httpClient.PostAsJsonAsync("", contactDto);
+            var response = await _httpClient.PostAsJsonAsync("api/Contacts", contactDto);
             var stringResult = await response.Content.ReadAsStringAsync();
             var output = JsonConvert.DeserializeObject<OutputViewModel>(stringResult);
 
-            ((int)output.Data).Should().BeGreaterThan(default);
+            response.StatusCode.Should().Be(HttpStatusCode.OK);
+            output.Data.ToString().Should().NotBeNullOrWhiteSpace();
         }
     }
 }

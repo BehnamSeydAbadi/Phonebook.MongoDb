@@ -7,6 +7,6 @@ namespace DataAccess.Common.Entity
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
-        public int Id { get; init; }
+        public string Id { get; init; }
     }
 }

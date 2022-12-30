@@ -2,7 +2,7 @@
 
 namespace DataAccess.Contact.Entity
 {
-    public sealed class Contact : BaseEntity
+    public sealed class ContactEntity : BaseEntity
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
