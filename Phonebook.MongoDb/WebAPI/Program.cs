@@ -1,3 +1,4 @@
+using Business.Configurations;
 using DataAccess.Configurations;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,6 +11,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.ResolveDataAccess(builder.Configuration.GetSection("PhoneBookDb"));
+builder.Services.ResolveBusiness();
 
 var app = builder.Build();
 
