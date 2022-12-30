@@ -18,5 +18,8 @@ namespace DataAccess.Contact
 
         public async Task InsertAsync(ContactEntity entity)
             => await _contactsCollection.InsertOneAsync(entity);
+
+        public async Task<ContactEntity> GetAsync(string id)
+            => await _contactsCollection.Find(c => c.Id == id).SingleOrDefaultAsync();
     }
 }

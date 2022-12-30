@@ -29,11 +29,14 @@ namespace WebAPI.Test.Common
             return await DeserializeResponse(response.Content);
         }
 
+        protected TValue DeserializeJson<TValue>(string json)
+            => JsonConvert.DeserializeObject<TValue>(json);
+
         private async Task<OutputViewModel> DeserializeResponse(HttpContent httpContent)
         {
             var stringResult = await httpContent.ReadAsStringAsync();
 
-            return JsonConvert.DeserializeObject<OutputViewModel>(stringResult);
+            return DeserializeJson<OutputViewModel>(stringResult);
         }
     }
 }

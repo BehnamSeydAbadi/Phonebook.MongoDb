@@ -23,5 +23,8 @@ namespace Business.Contact
 
             return entity.Id;
         }
+
+        public async Task<ContactEntity> GetAsync(string id)
+            => await _contactDataAccess.GetAsync(id);
     }
 }

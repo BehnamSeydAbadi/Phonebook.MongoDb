@@ -12,14 +12,14 @@ namespace WebAPI.Test.Contact
         public async Task GetAsync_ShouldWorkSuccessfully()
         {
             var contactDto = new AutoFaker<ContactDto>()
-              .RuleFor(fake => fake.FirstName, fake => fake.Random.String())
+              .RuleFor(fake => fake.FirstName, fake => fake.Name.FullName())
               .Generate();
 
             var contactId = (await PostAsync(contactDto)).Data.ToString();
 
             var output = await GetAsync(contactId);
 
-            var viewModel = output.Data as ContactViewModel;
+            var viewModel = DeserializeJson<ContactViewModel>(output.Data.ToString());
 
             viewModel.FirstName.Should().Be(contactDto.FirstName);
         }

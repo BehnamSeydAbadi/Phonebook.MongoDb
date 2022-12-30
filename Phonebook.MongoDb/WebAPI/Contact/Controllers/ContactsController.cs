@@ -22,5 +22,13 @@ namespace WebAPI.Contact.Controllers
 
             return Ok(new OutputViewModel { Data = contactId });
         }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> Get(string id)
+        {
+            var contact = await _contactBusiness.GetAsync(id);
+
+            return Ok(new OutputViewModel { Data = contact });
+        }
     }
 }
