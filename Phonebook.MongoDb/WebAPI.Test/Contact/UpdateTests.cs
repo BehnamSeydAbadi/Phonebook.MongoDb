@@ -37,5 +37,18 @@ namespace WebAPI.Test.Contact
 
             output.Error.Should().Be(EmptyNameException.Message);
         }
+
+        [TestMethod]
+        public async Task UpdateAsync_WhenPhoneNumberIsEmpty_ShouldThrowEmptyPhoneNumberException()
+        {
+            var intertingDto = GenerateContactDto();
+            var contactId = (await PostAsync(intertingDto)).Data.ToString();
+
+            var updatingDto = DtoBuilder.Create().AddFirstName().AddAddress().AddEmail().Build();
+
+            var output = await PutAsync(contactId, updatingDto);
+
+            output.Error.Should().Be(EmptyPhoneNumberException.Message);
+        }
     }
 }

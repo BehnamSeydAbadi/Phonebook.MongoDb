@@ -17,10 +17,7 @@ namespace Business.Contact
         public async Task<string> InsertAsync(ContactDto dto)
         {
             ValidateNames(dto.FirstName, dto.LastName);
-
-            if (string.IsNullOrWhiteSpace(dto.PhoneNumber))
-                throw new EmptyPhoneNumberException();
-
+            ValidatePhoneNumber(dto.PhoneNumber);
 
             var entity = new ContactEntity
             {
@@ -45,6 +42,7 @@ namespace Business.Contact
         public async Task UpdateAsync(string id, ContactDto dto)
         {
             ValidateNames(dto.FirstName, dto.LastName);
+            ValidatePhoneNumber(dto.PhoneNumber);
 
             var entity = await GetAsync(id);
 
@@ -57,10 +55,16 @@ namespace Business.Contact
             await _contactDataAccess.UpdateAsync(entity);
         }
 
+
         private void ValidateNames(string firstName, string lastName)
         {
             if (string.IsNullOrWhiteSpace(firstName) && string.IsNullOrWhiteSpace(lastName))
                 throw new EmptyNameException();
+        }
+        private void ValidatePhoneNumber(string phoneNumber)
+        {
+            if (string.IsNullOrWhiteSpace(phoneNumber))
+                throw new EmptyPhoneNumberException();
         }
     }
 }
