@@ -1,7 +1,12 @@
-﻿namespace DataAccess.Common.Entity
+﻿using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
+
+namespace DataAccess.Common.Entity
 {
     public abstract class BaseEntity
     {
-        public int Id { get; init; }
+        [BsonId]
+        [BsonRepresentation(BsonType.ObjectId)]
+        public string Id { get; init; }
     }
 }

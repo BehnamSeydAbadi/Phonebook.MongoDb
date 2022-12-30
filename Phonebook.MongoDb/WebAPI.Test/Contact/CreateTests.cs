@@ -1,10 +1,12 @@
-﻿using WebAPI.Contact.Dtos;
+﻿using Business.Contact.Dtos;
 
 namespace WebAPI.Test.Contact
 {
     [TestClass]
     public class CreateTests : BaseTest
     {
+        public CreateTests() : base("api/Contacts") { }
+
         [TestMethod]
         public async Task InsertAsync_ShouldWorkSuccessfully()
         {
@@ -12,11 +14,9 @@ namespace WebAPI.Test.Contact
               .RuleFor(fake => fake.FirstName, fake => fake.Random.String())
               .Generate();
 
-            var response = await _httpClient.PostAsJsonAsync("", contactDto);
-            var stringResult = await response.Content.ReadAsStringAsync();
-            var output = JsonConvert.DeserializeObject<OutputViewModel>(stringResult);
+            var output = await PostAsync(contactDto);
 
-            ((int)output.Data).Should().BeGreaterThan(default);
+            output.Data.ToString().Should().NotBeNullOrWhiteSpace();
         }
     }
 }
