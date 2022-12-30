@@ -41,8 +41,10 @@ namespace Business.Contact
 
         public async Task UpdateAsync(string id, ContactDto dto)
         {
+            await ValidateIdAsync(id);
             ValidateNames(dto.FirstName, dto.LastName);
             ValidatePhoneNumber(dto.PhoneNumber);
+
 
             var entity = await GetAsync(id);
 
@@ -56,6 +58,13 @@ namespace Business.Contact
         }
 
 
+        private async Task ValidateIdAsync(string id)
+        {
+            var entity = await GetAsync(id);
+
+            if (entity is null)
+                throw new ContactNotFoundException();
+        }
         private void ValidateNames(string firstName, string lastName)
         {
             if (string.IsNullOrWhiteSpace(firstName) && string.IsNullOrWhiteSpace(lastName))

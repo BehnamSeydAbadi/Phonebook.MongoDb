@@ -1,6 +1,6 @@
-﻿using Business.Contact.Dtos;
-using Business.Contact.Exceptions;
+﻿using Business.Contact.Exceptions;
 using WebAPI.Contact.ViewModels;
+using MongoDB.Bson;
 
 namespace WebAPI.Test.Contact
 {
@@ -49,6 +49,18 @@ namespace WebAPI.Test.Contact
             var output = await PutAsync(contactId, updatingDto);
 
             output.Error.Should().Be(EmptyPhoneNumberException.Message);
+        }
+
+        [TestMethod]
+        public async Task UpdateAsync_WhenIdDoesNotExist_ShouldThrowContactNotFoundException()
+        {
+            var contactDto = GenerateContactDto();
+
+            var fakeId = ObjectId.GenerateNewId().ToString();
+
+            var output = await PutAsync(fakeId, contactDto);
+
+            output.Error.Should().Be(ContactNotFoundException.Message);
         }
     }
 }
