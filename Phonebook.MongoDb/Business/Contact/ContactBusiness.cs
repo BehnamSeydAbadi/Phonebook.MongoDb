@@ -1,4 +1,5 @@
-﻿using DataAccess.Contact.Entity;
+﻿using Business.Contact.Exceptions;
+using DataAccess.Contact.Entity;
 using Business.Contact.Dtos;
 using DataAccess.Contact;
 
@@ -15,9 +16,16 @@ namespace Business.Contact
 
         public async Task<string> InsertAsync(ContactDto dto)
         {
+            ValidateNames(dto.FirstName, dto.LastName);
+            ValidatePhoneNumber(dto.PhoneNumber);
+
             var entity = new ContactEntity
             {
-                FirstName = dto.FirstName
+                FirstName = dto.FirstName,
+                LastName = dto.LastName,
+                PhoneNumber = dto.PhoneNumber,
+                Address = dto.Address,
+                Email = dto.Email,
             };
 
             await _contactDataAccess.InsertAsync(entity);
@@ -33,6 +41,11 @@ namespace Business.Contact
 
         public async Task UpdateAsync(string id, ContactDto dto)
         {
+            await ValidateIdAsync(id);
+            ValidateNames(dto.FirstName, dto.LastName);
+            ValidatePhoneNumber(dto.PhoneNumber);
+
+
             var entity = await GetAsync(id);
 
             entity.FirstName = dto.FirstName;
@@ -42,6 +55,25 @@ namespace Business.Contact
             entity.Email = dto.Email;
 
             await _contactDataAccess.UpdateAsync(entity);
+        }
+
+
+        private async Task ValidateIdAsync(string id)
+        {
+            var entity = await GetAsync(id);
+
+            if (entity is null)
+                throw new ContactNotFoundException();
+        }
+        private void ValidateNames(string firstName, string lastName)
+        {
+            if (string.IsNullOrWhiteSpace(firstName) && string.IsNullOrWhiteSpace(lastName))
+                throw new EmptyNameException();
+        }
+        private void ValidatePhoneNumber(string phoneNumber)
+        {
+            if (string.IsNullOrWhiteSpace(phoneNumber))
+                throw new EmptyPhoneNumberException();
         }
     }
 }
