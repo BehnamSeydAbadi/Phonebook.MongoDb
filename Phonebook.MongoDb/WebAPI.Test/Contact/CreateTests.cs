@@ -3,16 +3,12 @@
 namespace WebAPI.Test.Contact
 {
     [TestClass]
-    public class CreateTests : BaseTest
+    public class CreateTests : ContactBaseTest
     {
-        public CreateTests() : base("api/Contacts") { }
-
         [TestMethod]
         public async Task InsertAsync_ShouldWorkSuccessfully()
         {
-            var contactDto = new AutoFaker<ContactDto>()
-              .RuleFor(fake => fake.FirstName, fake => fake.Random.String())
-              .Generate();
+            var contactDto = GenerateContactDto();
 
             var output = await PostAsync(contactDto);
 

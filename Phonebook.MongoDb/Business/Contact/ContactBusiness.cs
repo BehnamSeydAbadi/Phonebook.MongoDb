@@ -36,6 +36,10 @@ namespace Business.Contact
             var entity = await GetAsync(id);
 
             entity.FirstName = dto.FirstName;
+            entity.LastName = dto.LastName;
+            entity.PhoneNumber = dto.PhoneNumber;
+            entity.Address = dto.Address;
+            entity.Email = dto.Email;
 
             await _contactDataAccess.UpdateAsync(entity);
         }
