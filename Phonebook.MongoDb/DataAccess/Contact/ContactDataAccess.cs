@@ -24,5 +24,8 @@ namespace DataAccess.Contact
 
         public async Task DeleteAsync(string id)
             => await _contactsCollection.DeleteOneAsync(c => c.Id == id);
+
+        public async Task UpdateAsync(ContactEntity entity)
+            => await _contactsCollection.ReplaceOneAsync(c => c.Id == entity.Id, entity);
     }
 }

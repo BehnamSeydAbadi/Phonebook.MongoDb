@@ -38,5 +38,13 @@ namespace WebAPI.Contact.Controllers
 
             return Ok(new OutputViewModel());
         }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Put(string id, ContactDto dto)
+        {
+            await _contactBusiness.UpdateAsync(id, dto);
+
+            return Ok(new OutputViewModel());
+        }
     }
 }

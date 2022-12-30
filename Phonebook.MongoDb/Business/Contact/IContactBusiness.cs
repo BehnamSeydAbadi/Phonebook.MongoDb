@@ -8,5 +8,6 @@ namespace Business.Contact
         Task<string> InsertAsync(ContactDto dto);
         Task<ContactEntity> GetAsync(string id);
         Task DeleteAsync(string id);
+        Task UpdateAsync(string id, ContactDto dto);
     }
 }

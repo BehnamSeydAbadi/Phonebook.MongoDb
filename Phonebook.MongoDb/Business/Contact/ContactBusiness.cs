@@ -30,5 +30,14 @@ namespace Business.Contact
 
         public async Task DeleteAsync(string id)
             => await _contactDataAccess.DeleteAsync(id);
+
+        public async Task UpdateAsync(string id, ContactDto dto)
+        {
+            var entity = await GetAsync(id);
+
+            entity.FirstName = dto.FirstName;
+
+            await _contactDataAccess.UpdateAsync(entity);
+        }
     }
 }
