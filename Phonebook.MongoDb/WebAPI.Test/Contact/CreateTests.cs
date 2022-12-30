@@ -5,6 +5,8 @@ namespace WebAPI.Test.Contact
     [TestClass]
     public class CreateTests : BaseTest
     {
+        public CreateTests() : base("api/Contacts") { }
+
         [TestMethod]
         public async Task InsertAsync_ShouldWorkSuccessfully()
         {
@@ -12,11 +14,8 @@ namespace WebAPI.Test.Contact
               .RuleFor(fake => fake.FirstName, fake => fake.Random.String())
               .Generate();
 
-            var response = await _httpClient.PostAsJsonAsync("api/Contacts", contactDto);
-            var stringResult = await response.Content.ReadAsStringAsync();
-            var output = JsonConvert.DeserializeObject<OutputViewModel>(stringResult);
+            var output = await PostAsync(contactDto);
 
-            response.StatusCode.Should().Be(HttpStatusCode.OK);
             output.Data.ToString().Should().NotBeNullOrWhiteSpace();
         }
     }
