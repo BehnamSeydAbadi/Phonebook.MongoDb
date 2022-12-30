@@ -1,4 +1,5 @@
-﻿using DataAccess.Contact.Entity;
+﻿using Business.Contact.Exceptions;
+using DataAccess.Contact.Entity;
 using Business.Contact.Dtos;
 using DataAccess.Contact;
 
@@ -15,9 +16,16 @@ namespace Business.Contact
 
         public async Task<string> InsertAsync(ContactDto dto)
         {
+            if (string.IsNullOrWhiteSpace(dto.FirstName) && string.IsNullOrWhiteSpace(dto.LastName))
+                throw new EmptyNameException();
+
             var entity = new ContactEntity
             {
-                FirstName = dto.FirstName
+                FirstName = dto.FirstName,
+                LastName = dto.LastName,
+                PhoneNumber = dto.PhoneNumber,
+                Address = dto.Address,
+                Email = dto.Email,
             };
 
             await _contactDataAccess.InsertAsync(entity);

@@ -18,9 +18,17 @@ namespace WebAPI.Contact.Controllers
         [HttpPost]
         public async Task<IActionResult> Post(ContactDto dto)
         {
-            var contactId = await _contactBusiness.InsertAsync(dto);
+            try
+            {
+                var contactId = await _contactBusiness.InsertAsync(dto);
 
-            return Ok(new OutputViewModel { Data = contactId });
+                return Ok(new OutputViewModel { Data = contactId });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new OutputViewModel { Error = ex.Message });
+            }
+
         }
 
         [HttpGet("{id}")]
