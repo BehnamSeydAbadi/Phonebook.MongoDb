@@ -28,7 +28,6 @@ namespace WebAPI.Contact.Controllers
             {
                 return BadRequest(new OutputViewModel { Error = ex.Message });
             }
-
         }
 
         [HttpGet("{id}")]
@@ -50,9 +49,19 @@ namespace WebAPI.Contact.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> Put(string id, ContactDto dto)
         {
-            await _contactBusiness.UpdateAsync(id, dto);
+            try
+            {
+                await _contactBusiness.UpdateAsync(id, dto);
 
-            return Ok(new OutputViewModel());
+                return Ok(new OutputViewModel());
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new OutputViewModel
+                {
+                    Error = ex.Message
+                });
+            }
         }
     }
 }

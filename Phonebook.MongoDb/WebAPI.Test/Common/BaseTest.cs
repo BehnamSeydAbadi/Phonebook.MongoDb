@@ -32,9 +32,12 @@ namespace WebAPI.Test.Common
         protected async Task DeleteAsync(string id)
             => await _httpClient.DeleteAsync($"{_uri}/{id}");
 
-        protected async Task PutAsync<TValue>(string id, TValue value)
-            => await _httpClient.PutAsJsonAsync($"{_uri}/{id}", value);
+        protected async Task<OutputViewModel> PutAsync<TValue>(string id, TValue value)
+        {
+            var response = await _httpClient.PutAsJsonAsync($"{_uri}/{id}", value);
 
+            return await DeserializeResponse(response.Content);
+        }
 
         protected TValue DeserializeJson<TValue>(string json)
             => JsonConvert.DeserializeObject<TValue>(json);

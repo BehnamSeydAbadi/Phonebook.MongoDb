@@ -1,4 +1,5 @@
 ﻿using Business.Contact.Dtos;
+using Business.Contact.Exceptions;
 using WebAPI.Contact.ViewModels;
 
 namespace WebAPI.Test.Contact
@@ -22,6 +23,19 @@ namespace WebAPI.Test.Contact
             viewModel.PhoneNumber.Should().Be(updatingDto.PhoneNumber);
             viewModel.Address.Should().Be(updatingDto.Address);
             viewModel.Email.Should().Be(updatingDto.Email);
+        }
+
+        [TestMethod]
+        public async Task UpdateAsync_WhenNamesAreEmpty_ShouldThrowEmptyNameException()
+        {
+            var intertingDto = GenerateContactDto();
+            var contactId = (await PostAsync(intertingDto)).Data.ToString();
+
+            var updatingDto = DtoBuilder.Create().AddPhoneNumber().AddAddress().AddEmail().Build();
+
+            var output = await PutAsync(contactId, updatingDto);
+
+            output.Error.Should().Be(EmptyNameException.Message);
         }
     }
 }
