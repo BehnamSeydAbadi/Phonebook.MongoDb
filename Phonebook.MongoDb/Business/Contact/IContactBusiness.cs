@@ -6,7 +6,7 @@ namespace Business.Contact
     public interface IContactBusiness
     {
         Task<string> InsertAsync(ContactDto dto);
-
         Task<ContactEntity> GetAsync(string id);
+        Task DeleteAsync(string id);
     }
 }

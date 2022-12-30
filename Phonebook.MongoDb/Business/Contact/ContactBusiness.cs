@@ -12,6 +12,7 @@ namespace Business.Contact
         {
             _contactDataAccess = contactDataAccess;
         }
+
         public async Task<string> InsertAsync(ContactDto dto)
         {
             var entity = new ContactEntity
@@ -26,5 +27,8 @@ namespace Business.Contact
 
         public async Task<ContactEntity> GetAsync(string id)
             => await _contactDataAccess.GetAsync(id);
+
+        public async Task DeleteAsync(string id)
+            => await _contactDataAccess.DeleteAsync(id);
     }
 }

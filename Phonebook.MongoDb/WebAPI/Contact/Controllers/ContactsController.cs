@@ -30,5 +30,13 @@ namespace WebAPI.Contact.Controllers
 
             return Ok(new OutputViewModel { Data = contact });
         }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(string id)
+        {
+            await _contactBusiness.DeleteAsync(id);
+
+            return Ok(new OutputViewModel());
+        }
     }
 }

@@ -29,6 +29,9 @@ namespace WebAPI.Test.Common
             return await DeserializeResponse(response.Content);
         }
 
+        protected async Task DeleteAsync(string id)
+            => await _httpClient.DeleteAsync($"{_uri}/{id}");
+
         protected TValue DeserializeJson<TValue>(string json)
             => JsonConvert.DeserializeObject<TValue>(json);
 
