@@ -11,7 +11,11 @@ namespace WebAPI.Test.Contact
         public async Task DeleteAsync_ShouldWorkSuccessfully()
         {
             var contactDto = new AutoFaker<ContactDto>()
-              .RuleFor(fake => fake.FirstName, fake => fake.Name.FullName())
+              .RuleFor(fake => fake.FirstName, fake => fake.Name.FirstName())
+              .RuleFor(fake => fake.LastName, fake => fake.Name.LastName())
+              .RuleFor(fake => fake.PhoneNumber, fake => fake.Phone.PhoneNumber())
+              .RuleFor(fake => fake.Address, fake => fake.Address.FullAddress())
+              .RuleFor(fake => fake.Email, fake => fake.Internet.Email())
               .Generate();
 
             var contactId = (await PostAsync(contactDto)).Data.ToString();
