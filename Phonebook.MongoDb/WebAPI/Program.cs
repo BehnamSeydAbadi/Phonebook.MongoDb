@@ -1,5 +1,7 @@
 using Business.Configurations;
 using DataAccess.Configurations;
+using WebAPI.Infrastructure.Filters;
+using WebAPI.Infrastructure.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,7 +14,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.ResolveDataAccess(builder.Configuration.GetSection("PhoneBookDb"));
 builder.Services.ResolveBusiness();
-
+builder.Services.AddControllers(option => option.Filters.Add(OutputActionFilter.Instance));
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -25,6 +27,8 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+
+app.UseMiddleware<ExceptionHandlingMiddleware>();
 
 app.MapControllers();
 

@@ -1,6 +1,8 @@
-﻿namespace Business.Contact.Exceptions
+﻿using Business.Common;
+
+namespace Business.Contact.Exceptions
 {
-    public class ContactNotFoundException : Exception
+    public class ContactNotFoundException : BaseException
     {
         public const string Message = "Contact not found.";
 

@@ -1,8 +1,7 @@
-﻿using Business.Contact;
-using Business.Contact.Dtos;
+﻿using WebAPI.Common.Controllers;
 using Microsoft.AspNetCore.Mvc;
-using WebAPI.Common.Controllers;
-using WebAPI.Common.ViewModels;
+using Business.Contact.Dtos;
+using Business.Contact;
 
 namespace WebAPI.Contact.Controllers
 {
@@ -18,16 +17,9 @@ namespace WebAPI.Contact.Controllers
         [HttpPost]
         public async Task<IActionResult> Post(ContactDto dto)
         {
-            try
-            {
-                var contactId = await _contactBusiness.InsertAsync(dto);
+            var contactId = await _contactBusiness.InsertAsync(dto);
 
-                return Ok(new OutputViewModel { Data = contactId });
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(new OutputViewModel { Error = ex.Message });
-            }
+            return Ok(contactId);
         }
 
         [HttpGet("{id}")]
@@ -35,7 +27,7 @@ namespace WebAPI.Contact.Controllers
         {
             var contact = await _contactBusiness.GetAsync(id);
 
-            return Ok(new OutputViewModel { Data = contact });
+            return Ok(contact);
         }
 
         [HttpDelete("{id}")]
@@ -43,25 +35,15 @@ namespace WebAPI.Contact.Controllers
         {
             await _contactBusiness.DeleteAsync(id);
 
-            return Ok(new OutputViewModel());
+            return Ok();
         }
 
         [HttpPut("{id}")]
         public async Task<IActionResult> Put(string id, ContactDto dto)
         {
-            try
-            {
-                await _contactBusiness.UpdateAsync(id, dto);
+            await _contactBusiness.UpdateAsync(id, dto);
 
-                return Ok(new OutputViewModel());
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(new OutputViewModel
-                {
-                    Error = ex.Message
-                });
-            }
+            return Ok();
         }
     }
 }
