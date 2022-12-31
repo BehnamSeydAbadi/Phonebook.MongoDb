@@ -3,7 +3,7 @@ using Business.Common;
 using Newtonsoft.Json;
 using System.Net;
 
-namespace WebAPI.Infrastructure
+namespace WebAPI.Infrastructure.Middlewares
 {
     public sealed class ExceptionHandlingMiddleware
     {
