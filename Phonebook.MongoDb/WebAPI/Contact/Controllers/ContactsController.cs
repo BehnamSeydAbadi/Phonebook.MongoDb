@@ -18,16 +18,9 @@ namespace WebAPI.Contact.Controllers
         [HttpPost]
         public async Task<IActionResult> Post(ContactDto dto)
         {
-            try
-            {
-                var contactId = await _contactBusiness.InsertAsync(dto);
+            var contactId = await _contactBusiness.InsertAsync(dto);
 
-                return Ok(new OutputViewModel { Data = contactId });
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(new OutputViewModel { Error = ex.Message });
-            }
+            return Ok(new OutputViewModel { Data = contactId });
         }
 
         [HttpGet("{id}")]
@@ -49,19 +42,9 @@ namespace WebAPI.Contact.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> Put(string id, ContactDto dto)
         {
-            try
-            {
-                await _contactBusiness.UpdateAsync(id, dto);
+            await _contactBusiness.UpdateAsync(id, dto);
 
-                return Ok(new OutputViewModel());
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(new OutputViewModel
-                {
-                    Error = ex.Message
-                });
-            }
+            return Ok(new OutputViewModel());
         }
     }
 }
