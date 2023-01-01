@@ -1,5 +1,6 @@
 ﻿using DataAccess.Common.Model;
 using DataAccess.Contact;
+using DataAccess.Group;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -12,6 +13,7 @@ namespace DataAccess.Configurations
             serviceCollection.Configure<PhoneBookDbSettings>(configurationSection);
 
             serviceCollection.AddScoped<IContactDataAccess, ContactDataAccess>();
+            serviceCollection.AddScoped<IGroupDataAccess, GroupDataAccess>();
         }
     }
 }

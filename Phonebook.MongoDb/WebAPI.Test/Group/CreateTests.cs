@@ -1,4 +1,5 @@
 ﻿using Bogus;
+using WebAPI.Group.Dtos;
 
 namespace WebAPI.Test.Group
 {
@@ -10,9 +11,9 @@ namespace WebAPI.Test.Group
         [TestMethod]
         public async Task InsertAsync_ShouldWorkSuccessfully()
         {
-            var title = string.Empty;
+            var groupDto = new AutoFaker<GroupDto>().Generate();
 
-            var output = await PostAsync(title);
+            var output = await PostAsync(groupDto);
 
             output.Data.ToString().Should().NotBeNullOrWhiteSpace();
         }
