@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Business.Contact.Dtos;
 using Business.Contact;
 
-namespace WebAPI.Contact.Controllers
+namespace WebAPI.Contact
 {
     public class ContactsController : BaseApiController
     {
